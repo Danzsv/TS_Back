@@ -1,10 +1,20 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { createPoke, getDetailPoke, getPokemons } from "../services/pokemon";
 import { handleHttp } from "../utils/error.handle";
+import { Pokemon } from "../interfaces/pokemon.interface";
 
 const getAllPokemons = async (req: Request, res: Response) => {
   try {
+    const name = req.query.name as string;
+
     const response = await getPokemons();
+
+    if (name) {
+      let pokemonName = response.filter((poke: Pokemon) =>
+        poke.name.toLowerCase().includes(name.toLowerCase())
+      );
+      return res.send(pokemonName);
+    }
     res.send(response);
   } catch (error) {
     handleHttp(res, "ERROR_GET_ALL_POKEMONS", error);

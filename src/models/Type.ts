@@ -1,11 +1,13 @@
-import { Schema, Types, model, Model } from "mongoose";
-import { Type } from "../interfaces/type.interface";
+const { Schema, Types, model, Model } = require("mongoose");
+const mongooseDelete = require("mongoose-delete");
 
-const TypeSchema: Schema = new Schema<Type>(
+// import { Type } from "../interfaces/type.interface";
+
+const TypeSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      require: true,
     },
   },
   {
@@ -13,7 +15,8 @@ const TypeSchema: Schema = new Schema<Type>(
     versionKey: false,
   }
 );
+TypeSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 
 const TypeModel = model("Type", TypeSchema);
 
-export default TypeModel;
+module.exports = TypeModel;

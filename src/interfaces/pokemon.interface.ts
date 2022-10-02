@@ -1,8 +1,8 @@
 import { Types } from "mongoose";
-import { Type } from "./type.interface";
+
 export interface Pokemon {
-  pokedexId: number;
   name: string;
+  pokedexId: number;
   hp: number;
   attack: number;
   defense: number;
@@ -10,8 +10,8 @@ export interface Pokemon {
   height: number;
   weight: number;
   image: string;
-  // types: Array<string>;
-  types: [Types.ObjectId];
-  // types: [PopulatedDoc<Document<ObjectId> & Type>];
+  types: string[];
+  // types: [Types.ObjectId];
+
   custom: boolean;
 }

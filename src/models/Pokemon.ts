@@ -1,8 +1,8 @@
-import { Schema, Types, model, Model } from "mongoose";
-import { Pokemon } from "../interfaces/pokemon.interface";
-// import mongooseDelete from "mongoose-delete";
+const { Schema, Types, model, Model } = require("mongoose");
+// import { Pokemon } from "../interfaces/pokemon.interface";
+const mongooseDelete = require("mongoose-delete");
 
-const PokemonSchema: Schema = new Schema<Pokemon>(
+const PokemonSchema = new Schema(
   {
     pokedexId: {
       type: Number,
@@ -57,6 +57,9 @@ const PokemonSchema: Schema = new Schema<Pokemon>(
   }
 );
 
+PokemonSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 const PokemonModel = model("Pokemon", PokemonSchema);
 
-export default PokemonModel;
+module.exports = PokemonModel;
+
+export {};
