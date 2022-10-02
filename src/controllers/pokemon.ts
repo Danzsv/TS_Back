@@ -1,17 +1,22 @@
 import { Request, Response } from "express";
+import { createPoke, getDetailPoke, getPokemons } from "../services/pokemon";
 import { handleHttp } from "../utils/error.handle";
 
-const getPokemon = (req: Request, res: Response) => {
+const getAllPokemons = async (req: Request, res: Response) => {
   try {
+    const response = await getPokemons();
+    res.send(response);
   } catch (error) {
-    handleHttp(res, "ERROR_GET_POKEMON");
+    handleHttp(res, "ERROR_GET_ALL_POKEMONS", error);
   }
 };
-
-const getAllPokemons = (req: Request, res: Response) => {
+const getPokemon = async (req: Request, res: Response) => {
   try {
+    const { id } = req.params;
+    const detailPoke = await getDetailPoke(id);
+    res.send(detailPoke);
   } catch (error) {
-    handleHttp(res, "ERROR_GET_ALL_POKEMONS");
+    handleHttp(res, "ERROR_GET_POKEMON", error);
   }
 };
 
@@ -22,11 +27,12 @@ const updatePokemon = (req: Request, res: Response) => {
   }
 };
 
-const createPokemon = ({ body }: Request, res: Response) => {
+const createPokemon = async ({ body }: Request, res: Response) => {
   try {
-    res.send(body);
+    const responsePoke = await createPoke(body);
+    res.send(responsePoke);
   } catch (error) {
-    handleHttp(res, "ERROR_CREATE_POKEMON");
+    handleHttp(res, "ERROR_CREATE_POKEMON", error);
   }
 };
 
