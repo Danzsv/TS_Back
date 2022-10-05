@@ -14,7 +14,7 @@ const getTypes = async () => {
 };
 
 const getDetailType = async (id: string) => {
-  const searchById = await typeModel.findById({ id });
+  const searchById = await typeModel.findById(id);
   return searchById;
 };
 
