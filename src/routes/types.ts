@@ -1,9 +1,19 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.send({ data: "Aqui van los modelos" });
-});
+import {
+  getAllType,
+  getType,
+  updateType,
+  deleteType,
+  createTypes,
+} from "../controllers/type";
+
+router.get("/", getAllType);
+router.get("/:id", getType);
+router.put("/:id", updateType);
+router.delete("/:id", deleteType);
+router.post("/", createTypes);
 
 export { router };

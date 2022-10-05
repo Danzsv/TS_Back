@@ -15,8 +15,8 @@ const TypeSchema = new Schema(
     versionKey: false,
   }
 );
-TypeSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 
+TypeSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 const TypeModel = model("Type", TypeSchema);
 
 module.exports = TypeModel;

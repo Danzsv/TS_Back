@@ -1,5 +1,11 @@
 import { Request, RequestHandler, Response } from "express";
-import { createPoke, getDetailPoke, getPokemons } from "../services/pokemon";
+import {
+  updatePokeDB,
+  deletePokeDB,
+  createPoke,
+  getDetailPoke,
+  getPokemons,
+} from "../services/pokemon";
 import { handleHttp } from "../utils/error.handle";
 import { Pokemon } from "../interfaces/pokemon.interface";
 
@@ -32,6 +38,11 @@ const getPokemon = async (req: Request, res: Response) => {
 
 const updatePokemon = (req: Request, res: Response) => {
   try {
+    const { id } = req.params;
+    const { body } = req.body;
+
+    const data = updatePokeDB(id, body);
+    return data;
   } catch (error) {
     handleHttp(res, "ERROR_UPDATE_POKEMON");
   }
@@ -48,6 +59,9 @@ const createPokemon = async ({ body }: Request, res: Response) => {
 
 const deletePokemon = (req: Request, res: Response) => {
   try {
+    const { id } = req.params;
+    const data = deletePokeDB(id);
+    return res.json(data);
   } catch (error) {
     handleHttp(res, "ERROR_DELETE_POKEMON");
   }
